@@ -1,0 +1,73 @@
+//CONTRASEÑA
+
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12,11,5,4,3,2);
+String dato;
+//int tamano=0;
+//String contrasena;
+
+
+void setup() {
+  lcd.begin(16,2);
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  
+  if(Serial.available()>0)
+  {
+    dato=Serial.readString();
+    Serial.println(dato);
+    lcd.clear();
+    if(dato=="2386")
+    {
+      lcd.setCursor(0,0);
+      lcd.print("CONTRASEÑA");
+      lcd.setCursor(0,1);
+      lcd.print("ACEPTADA");
+      Serial.println("Contraseña Aceptada");
+    
+    }
+    else
+    {
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("CONTRASEÑA");
+      lcd.setCursor(0,1);
+      lcd.print("NO ACEPTADA");
+      Serial.println("Contraseña No Aceptada");
+    }
+  }
+
+}
+
+//MENSAJE
+
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (12,11,5,4,3,2);
+char mensaje [15];
+String dato;
+int cont=0;
+
+void setup() {
+  lcd.begin(16,2);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available()>0)
+  {
+    dato=Serial.readString();
+    dato.toCharArray(mensaje,dato.length()+1);
+    Serial.println(dato);
+  }
+  lcd.clear();
+  for (;cont<dato.length()+1;cont++)
+  {
+    lcd.setCursor(cont, 0);
+    lcd.print(mensaje[cont]);
+    delay(200);
+  }
+  cont=0;
+}
